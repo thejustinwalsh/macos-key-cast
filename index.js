@@ -35,10 +35,8 @@ module.exports = ({
 		keyCombinationsOnly && '-k'
 	].filter(Boolean));
 
-	onCancel(() => {
-		resolve();
-		worker.cancel();
-	});
+	onCancel.shouldReject = false;
+	onCancel(() => worker.cancel());
 
 	try {
 		const {stderr} = await worker;
